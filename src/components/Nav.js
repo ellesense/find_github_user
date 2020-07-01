@@ -1,14 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Nav = ({ menuOne, menuTwo, menuThree }) => {
+const Nav = ({ menuOne, menuTwo, linkForMenuOne, linkForMenuTwo }) => {
   return (
     <>
       <nav>
         <ul>
-          <li>{menuOne}</li>
-          <li>{menuTwo}</li>
-          <li>{menuThree}</li>
+          <li>
+            <Link to={linkForMenuOne}>{menuOne}</Link>
+          </li>
+          <li>
+            <Link to={linkForMenuTwo}>{menuTwo}</Link>
+          </li>
         </ul>
       </nav>
     </>
@@ -18,13 +22,11 @@ const Nav = ({ menuOne, menuTwo, menuThree }) => {
 Nav.defaultProps = {
   menuOne: "Menu One",
   menuTwo: "Menu Two",
-  menuThree: "Menu Three",
 };
 
 Nav.propTypes = {
   menuOne: PropTypes.string,
   menuTwo: PropTypes.string,
-  menuThree: PropTypes.string,
 };
 
 export default Nav;
