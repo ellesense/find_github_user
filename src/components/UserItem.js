@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserItem = ({ login, avatar_url, html_url }) => {
+const UserItem = ({ user: { login, avatar_url, html_url } }) => {
   return (
     <div
       style={{
