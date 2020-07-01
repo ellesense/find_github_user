@@ -6,21 +6,31 @@ const UserItem = ({ user: { login, avatar_url, html_url } }) => {
   return (
     <div
       style={{
-        margin: "20px",
-        backgroundColor: "#DCDCDC",
+        boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
+        width: "200px",
         padding: "20px",
-        borderRadius: "3px",
+        margin: "auto",
       }}
     >
       <img
         src={avatar_url}
-        style={{ width: "70px", borderRadius: "99px" }}
+        style={{
+          width: "70px",
+          borderRadius: "99px",
+          display: "block",
+          margin: "auto",
+        }}
         alt="avatar-img"
       />
-      <h3>{login}</h3>
-
-      <Link to={`/user/${login}`} style={{ textDecoration: "none" }}>
-        GitHub Link
+      <Link
+        to={`/user/${login}`}
+        style={{
+          textDecoration: "none",
+          display: "block",
+          textAlign: "center",
+        }}
+      >
+        {login}
       </Link>
     </div>
   );

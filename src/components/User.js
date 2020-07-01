@@ -45,6 +45,7 @@ export class User extends Component {
               style={{
                 width: "150px",
                 display: "block",
+                borderRadius: "99px",
                 margin: "auto",
               }}
             />
