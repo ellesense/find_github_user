@@ -12,6 +12,7 @@ class App extends React.Component {
   };
 
   onSearch = async (searchKey) => {
+    this.setState({ loading: true });
     const res = await axios.get(
       `https://api.github.com/search/users?q=${searchKey}`
     );
