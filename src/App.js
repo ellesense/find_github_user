@@ -5,11 +5,13 @@ import Nav from "./components/Nav";
 import Alert from "./components/Alert";
 import UserList from "./components/UserList";
 import Search from "./components/Search";
+import User from "./components/User";
 import Contact from "./components/Contact";
 import "./App.css";
 
 class App extends React.Component {
   state = {
+    user: {},
     users: [],
     loading: false,
     showAlert: false,
@@ -22,6 +24,12 @@ class App extends React.Component {
       `https://api.github.com/search/users?q=${searchKey}`
     );
     this.setState({ users: res.data.items, loading: false });
+  };
+
+  fetchSingleUser = async (username) => {
+    this.setState({ loading: true });
+    const res = await axios.get(`https://api.github.com/users/${username}`);
+    this.setState({ user: res.data, loading: false });
   };
 
   setAlert = (alertMsg) => {
@@ -61,6 +69,18 @@ class App extends React.Component {
               )}
             />
             <Route exact path="/contact" component={Contact} />
+            <Route
+              exact
+              path="/user/:login"
+              render={(props) => (
+                <User
+                  {...props}
+                  fetchSingleUser={this.fetchSingleUser}
+                  user={this.state.user}
+                  loading={this.state.loading}
+                />
+              )}
+            />
           </Switch>
         </div>
       </BrowserRouter>
