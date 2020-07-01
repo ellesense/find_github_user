@@ -11,7 +11,11 @@ const UserItem = ({ user: { login, avatar_url, html_url } }) => {
         borderRadius: "3px",
       }}
     >
-      <img src={avatar_url} alt="avatar-img" />
+      <img
+        src={avatar_url}
+        style={{ width: "70px", borderRadius: "99px" }}
+        alt="avatar-img"
+      />
       <h3>{login}</h3>
       <a href={html_url} style={{ textDecoration: "none" }}>
         GitHub Link
