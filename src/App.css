@@ -10,3 +10,17 @@
 .container {
   padding: 20px;
 }
+
+nav {
+  padding: 10px 10px 30px 10px;
+}
+
+ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+ul li {
+  /* margin: 0 15px 0 15px; */
+  list-style: none;
+}
