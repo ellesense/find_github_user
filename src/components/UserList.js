@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Loader from "./Loader";
 import UserItem from "./UserItem";
 
 export class UserList extends Component {
@@ -9,17 +10,22 @@ export class UserList extends Component {
   }
 
   render() {
-    console.log(this.props.users);
     return (
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gridGap: "1rem",
-        }}
-      >
-        {this.renderUsers()}
-      </div>
+      <>
+        {this.props.loading ? (
+          <Loader />
+        ) : (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gridGap: "1rem",
+            }}
+          >
+            {this.renderUsers()}
+          </div>
+        )}
+      </>
     );
   }
 }
