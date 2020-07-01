@@ -12,6 +12,7 @@ import "./App.css";
 class App extends React.Component {
   state = {
     user: {},
+    repos: [],
     users: [],
     loading: false,
     showAlert: false,
@@ -30,6 +31,14 @@ class App extends React.Component {
     this.setState({ loading: true });
     const res = await axios.get(`https://api.github.com/users/${username}`);
     this.setState({ user: res.data, loading: false });
+  };
+
+  fetchUserRepos = async (username, reposPerPage) => {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=${reposPerPage}&sort=created:asc`
+    );
+    this.setState({ repos: res.data, loading: false });
   };
 
   setAlert = (alertMsg) => {
@@ -76,7 +85,9 @@ class App extends React.Component {
                 <User
                   {...props}
                   fetchSingleUser={this.fetchSingleUser}
+                  fetchUserRepos={this.fetchUserRepos}
                   user={this.state.user}
+                  repos={this.state.repos}
                   loading={this.state.loading}
                 />
               )}

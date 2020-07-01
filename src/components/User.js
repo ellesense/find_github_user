@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 export class User extends Component {
   componentDidMount() {
     this.props.fetchSingleUser(this.props.match.params.login);
+    this.props.fetchUserRepos(this.props.match.params.login, 4);
   }
 
   static propTypes = {
@@ -84,6 +85,25 @@ export class User extends Component {
               <div>Followers: {followers}</div>
               <div>Following: {following}</div>
               <div>Public Repos: {public_repos}</div>
+
+              <div>
+                <h3 style={{ marginTop: "12px" }}>Repositories</h3>
+                <ul>
+                  {this.props.repos.map((repo) => {
+                    return (
+                      <li key={repo.id} style={{ listStyle: "none" }}>
+                        <a
+                          href={repo.html_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {repo.name}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           </div>
         )}

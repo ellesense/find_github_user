@@ -15,12 +15,12 @@ nav {
   padding: 10px 10px 30px 10px;
 }
 
-ul {
+nav ul {
   display: flex;
   justify-content: space-around;
 }
 
-ul li {
+nav ul li {
   /* margin: 0 15px 0 15px; */
   list-style: none;
 }
