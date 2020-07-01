@@ -23,6 +23,9 @@ export class User extends Component {
       bio,
       hireable,
       login,
+      followers,
+      following,
+      public_repos,
     } = this.props.user;
 
     return (
@@ -76,6 +79,11 @@ export class User extends Component {
                 ></i>
               </p>
               <p>Hireable? {hireable ? "Yes" : "Not at the moment"}</p>
+
+              {/* Other information */}
+              <div>Followers: {followers}</div>
+              <div>Following: {following}</div>
+              <div>Public Repos: {public_repos}</div>
             </div>
           </div>
         )}
