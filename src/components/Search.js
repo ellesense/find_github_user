@@ -1,49 +1,47 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-export class Search extends Component {
-  state = { text: "" };
+const Search = ({ onSearch, setAlert }) => {
+  const [text, setText] = useState("");
 
-  static propTypes = {
-    onSearch: PropTypes.func,
+  const onChange = (e) => {
+    setText(e.target.value);
   };
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
-    if (this.state.text === "") {
-      this.props.setAlert("Who do you want to search for?");
+    if (text === "") {
+      setAlert("Who do you want to search for?");
     } else {
-      this.props.onSearch(this.state.text);
-      this.setState({ text: "" });
+      onSearch(text);
+      setText("");
     }
   };
 
-  render() {
-    return (
-      <div style={{ textAlign: "center", margin: "20px" }}>
-        <form onSubmit={this.onSubmit}>
-          <input
-            style={{ fontSize: "12px", padding: "10px", width: "170px" }}
-            type="text"
-            name="text"
-            value={this.state.text}
-            onChange={this.onChange}
-            placeholder="Search for a user"
-          />
-          <input
-            style={{ padding: "10px", margin: "8px", fontSize: "12px" }}
-            type="submit"
-            value="Search"
-          />
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div style={{ textAlign: "center", margin: "20px" }}>
+      <form onSubmit={onSubmit}>
+        <input
+          style={{ fontSize: "12px", padding: "10px", width: "170px" }}
+          type="text"
+          name="text"
+          value={text}
+          onChange={onChange}
+          placeholder="Search for a user"
+        />
+        <input
+          style={{ padding: "10px", margin: "8px", fontSize: "12px" }}
+          type="submit"
+          value="Search"
+        />
+      </form>
+    </div>
+  );
+};
+
+Search.propTypes = {
+  onSearch: PropTypes.func,
+};
 
 export default Search;
