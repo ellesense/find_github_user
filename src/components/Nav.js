@@ -1,31 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-class Nav extends React.Component {
-  static defaultProps = {
-    menuOne: "Menu One",
-    menuTwo: "Menu Two",
-    menuThree: "Menu Three",
-  };
+const Nav = ({ menuOne, menuTwo, menuThree }) => {
+  return (
+    <>
+      <nav>
+        <ul>
+          <li>{menuOne}</li>
+          <li>{menuTwo}</li>
+          <li>{menuThree}</li>
+        </ul>
+      </nav>
+    </>
+  );
+};
 
-  static propTypes = {
-    menuOne: PropTypes.string,
-    menuTwo: PropTypes.string,
-    menuThree: PropTypes.string,
-  };
+Nav.defaultProps = {
+  menuOne: "Menu One",
+  menuTwo: "Menu Two",
+  menuThree: "Menu Three",
+};
 
-  render() {
-    return (
-      <>
-        <nav>
-          <ul>
-            <li>{this.props.menuOne}</li>
-            <li>{this.props.menuTwo}</li>
-            <li>{this.props.menuThree}</li>
-          </ul>
-        </nav>
-      </>
-    );
-  }
-}
+Nav.propTypes = {
+  menuOne: PropTypes.string,
+  menuTwo: PropTypes.string,
+  menuThree: PropTypes.string,
+};
+
 export default Nav;
