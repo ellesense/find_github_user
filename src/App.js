@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Nav from "./components/Nav";
@@ -9,96 +9,90 @@ import User from "./components/User";
 import Contact from "./components/Contact";
 import "./App.css";
 
-class App extends React.Component {
-  state = {
-    user: {},
-    repos: [],
-    users: [],
-    loading: false,
-    showAlert: false,
-    alertMsg: "",
-  };
+const App = () => {
+  const [user, setUser] = useState({});
+  const [users, setUsers] = useState([]);
+  const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
 
-  onSearch = async (searchKey) => {
-    this.setState({ loading: true });
+  const onSearch = async (searchKey) => {
+    setLoading(true);
     const res = await axios.get(
       `https://api.github.com/search/users?q=${searchKey}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
-    this.setState({ users: res.data.items, loading: false });
+    setUsers(res.data.items);
+    setLoading(false);
   };
 
-  fetchSingleUser = async (username) => {
-    this.setState({ loading: true });
+  const fetchSingleUser = async (username) => {
+    setLoading(true);
     const res = await axios.get(
       `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
-    this.setState({ user: res.data, loading: false });
+    setUser(res.data);
+    setLoading(false);
   };
 
-  fetchUserRepos = async (username, reposPerPage) => {
-    this.setState({ loading: true });
+  const fetchUserRepos = async (username, reposPerPage) => {
+    setLoading(true);
     const res = await axios.get(
       `https://api.github.com/users/${username}/repos?per_page=${reposPerPage}&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
-    this.setState({ repos: res.data, loading: false });
+    setRepos(res.data);
+    setLoading(false);
   };
 
-  setAlert = (alertMsg) => {
-    this.setState({ showAlert: true, alertMsg });
+  const setAlert = (alertMsg) => {
+    setShowAlert(true);
+    setAlertMsg(alertMsg);
     setTimeout(() => {
-      this.setState({ showAlert: false });
+      setShowAlert(false);
     }, 2500);
   };
 
-  render() {
-    return (
-      <BrowserRouter>
-        <Nav
-          menuOne="Home"
-          linkForMenuOne="/"
-          menuTwo="Contact"
-          linkForMenuTwo="/contact"
-        />
-        <div className="container">
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <>
-                  <h1 style={{ textAlign: "center" }}>Find Dat GitHub User</h1>
-                  <Search onSearch={this.onSearch} setAlert={this.setAlert} />
-                  <Alert
-                    showAlert={this.state.showAlert}
-                    alertMsg={this.state.alertMsg}
-                  />
-                  <UserList
-                    users={this.state.users}
-                    loading={this.state.loading}
-                  />
-                </>
-              )}
-            />
-            <Route exact path="/contact" component={Contact} />
-            <Route
-              exact
-              path="/user/:login"
-              render={(props) => (
-                <User
-                  {...props}
-                  fetchSingleUser={this.fetchSingleUser}
-                  fetchUserRepos={this.fetchUserRepos}
-                  user={this.state.user}
-                  repos={this.state.repos}
-                  loading={this.state.loading}
-                />
-              )}
-            />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <BrowserRouter>
+      <Nav
+        menuOne="Home"
+        linkForMenuOne="/"
+        menuTwo="Contact"
+        linkForMenuTwo="/contact"
+      />
+      <div className="container">
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <>
+                <h1 style={{ textAlign: "center" }}>Find Dat GitHub User</h1>
+                <Search onSearch={onSearch} setAlert={setAlert} />
+                <Alert showAlert={showAlert} alertMsg={alertMsg} />
+                <UserList users={users} loading={loading} />
+              </>
+            )}
+          />
+          <Route exact path="/contact" component={Contact} />
+          <Route
+            exact
+            path="/user/:login"
+            render={(props) => (
+              <User
+                {...props}
+                fetchSingleUser={fetchSingleUser}
+                fetchUserRepos={fetchUserRepos}
+                user={user}
+                repos={repos}
+                loading={loading}
+              />
+            )}
+          />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default App;
