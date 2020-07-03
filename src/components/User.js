@@ -1,19 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
-import PropTypes from "prop-types";
+import GithubContext from "../context/github/githubContext";
 
-const User = ({
-  fetchSingleUser,
-  fetchUserRepos,
-  match,
-  loading,
-  user,
-  repos,
-}) => {
+const User = ({ match }) => {
+  const githubContext = useContext(GithubContext);
+
   useEffect(() => {
-    fetchSingleUser(match.params.login);
-    fetchUserRepos(match.params.login, 4);
+    githubContext.fetchSingleUser(match.params.login);
+    githubContext.fetchUserRepos(match.params.login, 4);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,12 +23,12 @@ const User = ({
     followers,
     following,
     public_repos,
-  } = user;
+  } = githubContext.user;
 
   return (
     <>
       <Link to="/">Back to search</Link>
-      {loading ? (
+      {githubContext.loading ? (
         <Loader />
       ) : (
         <div
@@ -90,7 +85,7 @@ const User = ({
             <div>
               <h3 style={{ marginTop: "12px" }}>Repositories</h3>
               <ul>
-                {repos.map((repo) => {
+                {githubContext.repos.map((repo) => {
                   return (
                     <li key={repo.id} style={{ listStyle: "none" }}>
                       <a
@@ -110,12 +105,6 @@ const User = ({
       )}
     </>
   );
-};
-
-User.propTypes = {
-  loading: PropTypes.bool,
-  user: PropTypes.object,
-  fetchSingleUser: PropTypes.func,
 };
 
 export default User;

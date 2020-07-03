@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import Loader from "./Loader";
 import UserItem from "./UserItem";
-import PropTypes from "prop-types";
+import GithubContext from "../context/github/githubContext";
 
-const UserList = ({ users, loading }) => {
+const UserList = () => {
+  const githubContext = useContext(GithubContext);
+
   const renderUsers = () => {
-    return users.map((user) => <UserItem key={user.id} user={user} />);
+    return githubContext.users.map((user) => (
+      <UserItem key={user.id} user={user} />
+    ));
   };
 
   return (
     <>
-      {loading ? (
+      {githubContext.loading ? (
         <Loader />
       ) : (
         <div
@@ -25,11 +29,6 @@ const UserList = ({ users, loading }) => {
       )}
     </>
   );
-};
-
-UserList.propTypes = {
-  loading: PropTypes.bool,
-  users: PropTypes.array,
 };
 
 export default UserList;
