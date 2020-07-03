@@ -5,16 +5,15 @@ import GithubContext from "../context/github/githubContext";
 
 const UserList = () => {
   const githubContext = useContext(GithubContext);
+  const { users, loading } = githubContext;
 
   const renderUsers = () => {
-    return githubContext.users.map((user) => (
-      <UserItem key={user.id} user={user} />
-    ));
+    return users.map((user) => <UserItem key={user.id} user={user} />);
   };
 
   return (
     <>
-      {githubContext.loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <div

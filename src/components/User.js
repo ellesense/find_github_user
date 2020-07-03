@@ -5,10 +5,11 @@ import GithubContext from "../context/github/githubContext";
 
 const User = ({ match }) => {
   const githubContext = useContext(GithubContext);
+  const { fetchSingleUser, fetchUserRepos, loading, repos } = githubContext;
 
   useEffect(() => {
-    githubContext.fetchSingleUser(match.params.login);
-    githubContext.fetchUserRepos(match.params.login, 4);
+    fetchSingleUser(match.params.login);
+    fetchUserRepos(match.params.login, 4);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,7 +29,7 @@ const User = ({ match }) => {
   return (
     <>
       <Link to="/">Back to search</Link>
-      {githubContext.loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <div
@@ -85,7 +86,7 @@ const User = ({ match }) => {
             <div>
               <h3 style={{ marginTop: "12px" }}>Repositories</h3>
               <ul>
-                {githubContext.repos.map((repo) => {
+                {repos.map((repo) => {
                   return (
                     <li key={repo.id} style={{ listStyle: "none" }}>
                       <a

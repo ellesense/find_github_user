@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import AlertContext from "../context/alert/alertContext";
 
-const Alert = ({ showAlert, alertMsg }) => {
+const Alert = () => {
   const alertContext = useContext(AlertContext);
+  const { showAlert, alertMsg } = alertContext;
 
   return (
     <div className="alert-msg" style={{ textAlign: "center" }}>
-      {alertContext.showAlert && alertContext.alertMsg}
+      {showAlert && alertMsg}
     </div>
   );
 };
