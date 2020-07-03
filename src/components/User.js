@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 import Loader from "./Loader";
 import GithubContext from "../context/github/githubContext";
 
-const User = ({ match }) => {
+const User = ({ match, username }) => {
   const githubContext = useContext(GithubContext);
   const { fetchSingleUser, fetchUserRepos, loading, repos } = githubContext;
 
   useEffect(() => {
-    fetchSingleUser(match.params.login);
-    fetchUserRepos(match.params.login, 4);
+    if (match) {
+      fetchSingleUser(match.params.login);
+      fetchUserRepos(match.params.login, 4);
+    } else {
+      fetchSingleUser(username);
+      fetchUserRepos(username, 4);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

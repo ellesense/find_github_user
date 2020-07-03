@@ -1,18 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
+import User from "./User";
 
-export class Contact extends Component {
-  render() {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <h3>steve kim</h3>
-      </div>
-    );
-  }
-}
+const Contact = () => {
+  return (
+    <div>
+      <User username={"ellesense"} />
+    </div>
+  );
+};
 
 export default Contact;
