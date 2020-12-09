@@ -41,6 +41,7 @@ const Search = () => {
         />
       </form>
       <iframe
+        title="playlist"
         width="560"
         height="100"
         src="https://www.youtube.com/embed/videoseries?list=PLpWFmj_jTjM5ZK7vfcmisk4BqEMwutd5I"
