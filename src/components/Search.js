@@ -40,6 +40,14 @@ const Search = () => {
           value="Search"
         />
       </form>
+      <iframe
+        width="560"
+        height="100"
+        src="https://www.youtube.com/embed/videoseries?list=PLpWFmj_jTjM5ZK7vfcmisk4BqEMwutd5I"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
     </div>
   );
 };
